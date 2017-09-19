@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>Pacjenci</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+<link type="text/css" rel="stylesheet" href="/css/style.css" />
+</head>
+<body ng-controller="viewController">
+	<div class="container-fluid" id="content" style="position: relative;">
+		<h1 class="text-center">Pacjenci</h1>
+		<div class="row">
+			<div class="col-lg-4">
+
+
+				<div class="jumbotron">
+					<div class="container">
+						<p class="text-center">Dane pacjenta</p>
+						<p>Imię: {{currentPatient.name}}</p>
+						<p>Nazwisko:{{currentPatient.surname}}</p>
+						<p>PESEL: {{currentPatient.pesel}}</p>
+						<div class="button-group">
+							<button class="btn btn-primary" aria-label="Edytuj"
+								ng-disabled="buttonDisabled"
+								ng-click="addPatientDialog($event,currentPatient)">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+							<button class="btn btn-danger" aria-label="Usuń"
+								ng-disabled="buttonDisabled"
+								ng-click="deletePatient(currentPatient.id)">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="jumbotron">
+					<div class="container">
+						<p class="text-center">Lista badań</p>
+						<div class="table-responsive">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Data</th>
+										<th>Nazwa</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="test in tests |orderBy:testDate">
+										<td>{{test.testDate}}</td>
+										<td>{{test.shortDescription}}</td>
+										<td>
+											<div class="button-group">
+												<button class="btn btn-primary" aria-label="Pokaż"
+													ng-click="testDialog($event,test.id)">
+													<span class="glyphicon glyphicon-eye-open"
+														aria-hidden="true"></span>
+												</button>
+												<button class="btn btn-primary" aria-label="Edytuj"
+													ng-click="editTestDialog($event,test.id)">
+													<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+												</button>
+												<button class="btn btn-danger" aria-label="Usuń"
+													ng-click="deleteTest(test.id)">
+													<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+												</button>
+											</div>
+										</td>
+								</tbody>
+							</table>
+						</div>
+
+						<button class="btn btn-success" ng-disabled="buttonDisabled"
+							ng-click="addTestDialog($event,currentPatient.id)">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+
+
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-8">
+				<div class="jumbotron">
+					<p class="text-center">Lista pacjentów</p>
+					<div class="table-responsive">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+
+									<th ng-click="order('name')">Imię</th>
+									<th ng-click="order('surname')">Nazwisko</th>
+									<th ng-click="order('pesel')">PESEL</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="patient in patients |orderBy:orderBy"
+									ng-click="setPatient(patient.id)">
+									<td>{{patient.name}}</td>
+									<td>{{patient.surname}}</td>
+									<td>{{patient.pesel}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="button-group">
+						<button class="btn btn-success"
+							ng-click="addPatientDialog($event,null)">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
+						<button class="btn btn-primary" aria-label="Poprzednia strona"
+							ng-click="goToFirstPage()">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						</button>
+
+						<button class="btn btn-primary" aria-label="Poprzednia strona"
+							ng-click="previousPage()">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						</button>
+						<button class="btn btn-primary" aria-label="Następna strona"
+							ng-click="nextPage()">
+							<span class="glyphicon glyphicon-chevron-right"
+								aria-hidden="true"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted">Projekt na potrzeby przedmiotu OSM. &copy;Mateusz Socha i Izabela Plucińska</p>
+		</div>
+	</footer>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+	<!-- Angular Material Library -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	<script src="js/angular/ui-bootstrap-tpls-2.5.0.min.js"></script>
+	<script src="js/angular/ng-file-upload-all.min.js"></script>
+
+	<!-- dicom viewer -->
+	<script type="text/javascript" src="ext/modernizr/modernizr.js"></script>
+	<script type="text/javascript" src="ext/i18next/i18next.min.js"></script>
+	<script type="text/javascript"
+		src="ext/i18next/i18nextXHRBackend.min.js"></script>
+	<script type="text/javascript"
+		src="ext/i18next/i18nextBrowserLanguageDetector.min.js"></script>
+
+	<script src="js/dwv/dwv.min.js"></script>
+	<script type="text/javascript" src="js/dwv/appgui.js"></script>
+	<script type="text/javascript" src="js/dwv/applauncher.js"></script>
+
+	<!-- Aplikacja -->
+	<script src="js/app/app.js"></script>
+	<script src="js/app/viewController.js"></script>
+
+
+</body>
+</html>

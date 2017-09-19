@@ -1,0 +1,36 @@
+<md-dialog style="width:90%; height:95%;"aria-label="Badanie"> </md-toolbar>
+<div class="md-toolbar-tools">
+	<h2>Badanie: {{patient.name}} {{ patient.surname}} -
+		{{test.testDate }}</h2>
+	<span flex></span> <span class="glyphicon glyphicon-remove"
+		ng-click="closeDialog()"></span>
+</div>
+</md-toolbar> <md-dialog-content>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-10">
+			<!-- DWV -->
+			<div id="dwv">
+
+				<!-- Toolbar -->
+				<div class="toolbar"></div>
+				<!-- Layer Container -->
+				<div class="layerContainer">
+					<canvas class="imageLayer">Only for HTML5 compatible browsers...</canvas>
+				</div>
+				<!-- /layerContainer -->
+			</div>
+		</div>
+
+		<!-- /dwv -->
+		<div class="col-lg-2">
+			<div>
+			<h4 class="text-center">Opis badania</h4>
+				<p>{{test.description}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+</md-dialog-content> <md-dialog-actions> <md-button
+	ng-click="closeDialog()" class="btn">Anuluj</md-button> </md-dialog-actions> </md-dialog>
+

@@ -1,0 +1,18 @@
+<md-dialog aria-label="Dodaj Badanie"> </md-toolbar>
+<div class="md-toolbar-tools">
+	<h2>Dodaj Badanie dla {{patient.name}} {{ patient.surname}}</h2>
+	<span flex></span> <span class="glyphicon glyphicon-remove"
+		ng-click="closeDialog()"></span>
+</div>
+</md-toolbar> <md-dialog-content>
+<div class="container">
+	<div class="form-group">
+		<input class="form-control" ng-model="test.shortDescription" placeholder="Nazwa badania">
+	</div>
+	<div class="form-group">		
+		<textArea rows="5" class="form-control" ng-model="test.description" placeholder="Opis badania"> </textArea>
+	</div>
+</div>
+</md-dialog-content> <md-dialog-actions> <md-button ng-click="editTest()"
+	class="md-primary btn btn-primary">Edytuj</md-button> <md-button
+	ng-click="closeDialog()" class="btn">Anuluj</md-button> </md-dialog-actions> </md-dialog>
